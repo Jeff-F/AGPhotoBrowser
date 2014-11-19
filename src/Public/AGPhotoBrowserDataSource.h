@@ -16,8 +16,8 @@
 - (NSInteger)numberOfPhotosForPhotoBrowser:(AGPhotoBrowser *)photoBrowser;
 
 @optional
-- (UIImage *)photoBrowser:(AGPhotoBrowser *)photoBrowser imageAtIndex:(NSInteger)index;
-- (UICollectionViewCell<AGPhotoBrowserCellProtocol> *)cellForBrowser:(AGPhotoBrowser *)browser withReuseIdentifier:(NSString *)reuseIdentifier;
+- (Class)cellClassForPhotoBrowser:(AGPhotoBrowser *)browser;
+- (UIImage *)photoBrowser:(AGPhotoBrowser *)photoBrowser imageAtIndex:(NSInteger)index;;
 - (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser URLStringForImageAtIndex:(NSInteger)index;
 - (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser titleForImageAtIndex:(NSInteger)index;
 - (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser descriptionForImageAtIndex:(NSInteger)index;

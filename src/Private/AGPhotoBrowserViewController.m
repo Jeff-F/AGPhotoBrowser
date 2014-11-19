@@ -11,10 +11,11 @@
 #import "AGPhotoBrowserZoomableView.h"
 #import "AGPhotoBrowserCell.h"
 
-@interface AGPhotoBrowserViewController () <UICollectionViewDataSource,	UICollectionViewDelegate, AGPhotoBrowserOverlayViewDelegate, AGPhotoBrowserCellDelegate>
+@interface AGPhotoBrowserViewController () <UICollectionViewDataSource,	UICollectionViewDelegateFlowLayout, AGPhotoBrowserOverlayViewDelegate, AGPhotoBrowserCellDelegate>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) AGPhotoBrowserOverlayView *overlayView;
+@property (nonatomic, strong) AGPhotoBrowser *photoBrowser;
 
 @property (nonatomic, assign) NSInteger currentlySelectedIndex;
 @property (nonatomic, assign) CGPoint startingPanPoint;
@@ -30,11 +31,19 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+	return [self initWithPhotoBrowser:nil];
+}
+
+- (instancetype)initWithPhotoBrowser:(AGPhotoBrowser *)photoBrowser
+{
+	NSParameterAssert(photoBrowser);
+	
+	self = [super initWithNibName:nil bundle:nil];
+	if (self) {
+		// Custom initialization
+		_photoBrowser = photoBrowser;
+	}
+	return self;
 }
 
 - (void)loadView
@@ -66,6 +75,10 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 {
 	if (!_collectionView) {
 		UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+		flowLayout.minimumInteritemSpacing = 0;
+		flowLayout.minimumLineSpacing = 0;
+		flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		
 		_collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:flowLayout];
 		_collectionView.translatesAutoresizingMaskIntoConstraints = NO;
 		_collectionView.dataSource = self;
@@ -74,7 +87,14 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 		_collectionView.pagingEnabled = YES;
 		_collectionView.showsVerticalScrollIndicator = NO;
 		_collectionView.showsHorizontalScrollIndicator = NO;
-//		_photoCollectionView.alpha = 0.;
+		
+		Class cellClass;
+		if ([self.dataSource respondsToSelector:@selector(cellClassForPhotoBrowser:)]) {
+			cellClass = [self.dataSource cellClassForPhotoBrowser:self.photoBrowser];
+		} else {
+			cellClass = [AGPhotoBrowserCell class];
+		}
+		[_collectionView registerClass:cellClass forCellWithReuseIdentifier:AGPhotoBrowserViewControllerCellIdentifier];
 	}
 	
 	return _collectionView;
@@ -86,7 +106,6 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 		_overlayView = [[AGPhotoBrowserOverlayView alloc] initWithFrame:CGRectZero];
 		_overlayView.translatesAutoresizingMaskIntoConstraints = NO;
         _overlayView.delegate = self;
-//		[_overlayView AG_rotateRadians:M_PI_2];
 	}
 	
 	return _overlayView;
@@ -131,15 +150,15 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
     }
     
 	if ([self.dataSource respondsToSelector:@selector(photoBrowser:titleForImageAtIndex:)]) {
-		self.overlayView.title = [self.dataSource photoBrowser:nil titleForImageAtIndex:self.currentlySelectedIndex];
+		self.overlayView.photoTitle = [self.dataSource photoBrowser:nil titleForImageAtIndex:self.currentlySelectedIndex];
 	} else {
-        self.overlayView.title = @"";
+        self.overlayView.photoTitle = @"";
     }
 	
 	if ([self.dataSource respondsToSelector:@selector(photoBrowser:descriptionForImageAtIndex:)]) {
-		self.overlayView.description = [self.dataSource photoBrowser:nil descriptionForImageAtIndex:self.currentlySelectedIndex];
+		self.overlayView.photoDescription = [self.dataSource photoBrowser:nil descriptionForImageAtIndex:self.currentlySelectedIndex];
 	} else {
-        self.overlayView.description = @"";
+        self.overlayView.photoDescription = @"";
     }
 }
 
@@ -157,16 +176,8 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell<AGPhotoBrowserCellProtocol> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:AGPhotoBrowserViewControllerCellIdentifier forIndexPath:indexPath];
-    if (!cell) {
-        if ([self.dataSource respondsToSelector:@selector(cellForBrowser:withReuseIdentifier:)]) {
-            cell = [self.dataSource cellForBrowser:nil withReuseIdentifier:AGPhotoBrowserViewControllerCellIdentifier];
-        } else {
-            // -- Provide fallback if the user does not want its own implementation of a cell
-            cell = [[AGPhotoBrowserCell alloc] initWithFrame:CGRectZero];
-        }
-		cell.delegate = self;
-    }
+	UICollectionViewCell<AGPhotoBrowserCellProtocol> *cell = [collectionView dequeueReusableCellWithReuseIdentifier:AGPhotoBrowserViewControllerCellIdentifier forIndexPath:indexPath];
+	cell.delegate = self;
 	
     [self configureCell:cell forRowAtIndexPath:indexPath];
     
@@ -176,7 +187,7 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
 - (void)configureCell:(UICollectionViewCell<AGPhotoBrowserCellProtocol> *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if ([self.dataSource respondsToSelector:@selector(photoBrowser:shouldDisplayOverlayViewAtIndex:)]) {
-		BOOL overlayIsVisible = [self.dataSource photoBrowser:nil shouldDisplayOverlayViewAtIndex:indexPath.row];
+		BOOL overlayIsVisible = [self.dataSource photoBrowser:self.photoBrowser shouldDisplayOverlayViewAtIndex:indexPath.row];
 		self.overlayView.hidden = !overlayIsVisible;
 	}
 	
@@ -185,17 +196,22 @@ const NSInteger AGPhotoBrowserThresholdToCenter = 150;
     }
     
     if ([self.dataSource respondsToSelector:@selector(photoBrowser:URLStringForImageAtIndex:)] && [cell respondsToSelector:@selector(setCellImageWithURL:)]) {
-        [cell setCellImageWithURL:[NSURL URLWithString:[_dataSource photoBrowser:nil URLStringForImageAtIndex:indexPath.row]]];
+        [cell setCellImageWithURL:[NSURL URLWithString:[self.dataSource photoBrowser:self.photoBrowser URLStringForImageAtIndex:indexPath.row]]];
     } else if ([self.dataSource respondsToSelector:@selector(photoBrowser:imageAtIndex:)]) {
         [cell setCellImage:[self.dataSource photoBrowser:nil imageAtIndex:indexPath.row]];
     }
 }
 
-#pragma mark - UICollectionViewDelegate
+#pragma mark - UICollectionViewFlowLayoutDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	self.displayingDetailedView = !self.isDisplayingDetailedView;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	return self.view.bounds.size;
 }
 
 #pragma mark - UIScrollViewDelegate

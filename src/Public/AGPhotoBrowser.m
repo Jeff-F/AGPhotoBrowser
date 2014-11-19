@@ -65,9 +65,9 @@ const CGFloat AGPhotoBrowserAnimationDuration = 0.25f;
     self.currentWindow.windowLevel = UIWindowLevelStatusBar;
     self.currentWindow.hidden = NO;
     self.currentWindow.backgroundColor = [UIColor clearColor];
-	AGPhotoBrowserViewController *rootViewController = [[AGPhotoBrowserViewController alloc] init];
+	AGPhotoBrowserViewController *rootViewController = [[AGPhotoBrowserViewController alloc] initWithPhotoBrowser:self];
 	rootViewController.delegate = self;
-	rootViewController.dataSource = self;
+	rootViewController.dataSource = self.dataSource;
 	self.currentWindow.rootViewController = rootViewController;
     [self.currentWindow makeKeyAndVisible];
 	
@@ -157,137 +157,79 @@ const CGFloat AGPhotoBrowserAnimationDuration = 0.25f;
 	}
 }
 
-#pragma mark - AGPhotoBrowserDataSource (Proxy)
-
-- (NSInteger)numberOfPhotosForPhotoBrowser:(AGPhotoBrowser *)photoBrowser
-{
-	return [self.dataSource numberOfPhotosForPhotoBrowser:self];
-}
-
-- (UIImage *)photoBrowser:(AGPhotoBrowser *)photoBrowser imageAtIndex:(NSInteger)index
-{
-	UIImage *image = nil;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:imageAtIndex:)]) {
-		image = [self.dataSource photoBrowser:self imageAtIndex:index];
-	}
-	
-	return image;
-}
-
-- (UICollectionViewCell<AGPhotoBrowserCellProtocol> *)cellForBrowser:(AGPhotoBrowser *)browser withReuseIdentifier:(NSString *)reuseIdentifier
-{
-	UICollectionViewCell<AGPhotoBrowserCellProtocol> *cell;
-	if ([self.dataSource respondsToSelector:@selector(cellForBrowser:withReuseIdentifier:)]) {
-		cell = [self.dataSource cellForBrowser:self withReuseIdentifier:reuseIdentifier];
-	}
-	
-	return cell;
-}
-
-- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser URLStringForImageAtIndex:(NSInteger)index
-{
-	NSString *URLString = nil;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:URLStringForImageAtIndex:)]) {
-		URLString = [self.dataSource photoBrowser:self URLStringForImageAtIndex:index];
-	}
-	
-	return URLString;
-}
-
-- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser titleForImageAtIndex:(NSInteger)index
-{
-	NSString *titleString = nil;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:titleForImageAtIndex:)]) {
-		titleString = [self.dataSource photoBrowser:self titleForImageAtIndex:index];
-	}
-	
-	return titleString;
-}
-
-- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser descriptionForImageAtIndex:(NSInteger)index
-{
-	NSString *descriptionString = nil;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:descriptionForImageAtIndex:)]) {
-		descriptionString = [self.dataSource photoBrowser:self descriptionForImageAtIndex:index];
-	}
-	
-	return descriptionString;
-}
-
-- (BOOL)photoBrowser:(AGPhotoBrowser *)photoBrowser willDisplayActionButtonAtIndex:(NSInteger)index
-{
-	BOOL willDisplayActionButton = NO;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:willDisplayActionButtonAtIndex:)]) {
-		willDisplayActionButton = [self.dataSource photoBrowser:self willDisplayActionButtonAtIndex:index];
-	}
-	
-	return willDisplayActionButton;
-}
-
-- (BOOL)photoBrowser:(AGPhotoBrowser *)photoBrowser shouldDisplayOverlayViewAtIndex:(NSInteger)index
-{
-	BOOL shouldDisplayOverlayView = NO;
-	if ([self.dataSource respondsToSelector:@selector(photoBrowser:shouldDisplayOverlayViewAtIndex:)]) {
-		shouldDisplayOverlayView = [self.dataSource photoBrowser:self shouldDisplayOverlayViewAtIndex:index];
-	}
-	
-	return shouldDisplayOverlayView;
-}
-
-
-
-
-//#pragma mark - Orientation change
+//#pragma mark - AGPhotoBrowserDataSource (Proxy)
 //
-//- (void)statusBarDidChangeFrame:(NSNotification *)notification
+//- (NSInteger)numberOfPhotosForPhotoBrowser:(AGPhotoBrowser *)photoBrowser
 //{
-//	self.changingOrientation = YES;
-//	
-//    // -- Get the device orientation
-//    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-//	
-//	CGFloat angleTable = UIInterfaceOrientationAngleOfOrientation(orientation);
-//	CGAffineTransform viewTransform = CGAffineTransformMakeRotation(angleTable);
-//	CGRect viewFrame = [UIScreen mainScreen].bounds;
-//	
-//	// -- Update table
-//	[self setTransform:viewTransform andFrame:viewFrame forView:self];
-//	[self setNeedsUpdateConstraints];
-//	
-//	[self.photoCollectionView reloadData];
-//	[self.photoCollectionView layoutIfNeeded];
-////	[self.photoCollectionView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:_currentlySelectedIndex inSection:0] atScrollPosition:UITableViewScrollPositionNone animated:NO];
-//	
-//	self.changingOrientation = NO;
+//	return [self.dataSource numberOfPhotosForPhotoBrowser:self];
 //}
 //
-//- (void)setTransform:(CGAffineTransform)transform andFrame:(CGRect)frame forView:(UIView *)view
+//- (UIImage *)photoBrowser:(AGPhotoBrowser *)photoBrowser imageAtIndex:(NSInteger)index
 //{
-//	if (!CGAffineTransformEqualToTransform(view.transform, transform)) {
-//        view.transform = transform;
-//    }
-//    if (!CGRectEqualToRect(view.frame, frame)) {
-//        view.frame = frame;
-//    }
+//	UIImage *image = nil;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:imageAtIndex:)]) {
+//		image = [self.dataSource photoBrowser:self imageAtIndex:index];
+//	}
+//	
+//	return image;
 //}
 //
-//CGFloat UIInterfaceOrientationAngleOfOrientation(UIDeviceOrientation orientation)
+//- (UICollectionViewCell<AGPhotoBrowserCellProtocol> *)cellForBrowser:(AGPhotoBrowser *)browser withReuseIdentifier:(NSString *)reuseIdentifier
 //{
-//    CGFloat angle;
-//    
-//    switch (orientation) {
-//        case UIDeviceOrientationLandscapeLeft:
-//            angle = 0;
-//            break;
-//        case UIDeviceOrientationLandscapeRight:
-//            angle = M_PI;
-//            break;
-//        default:
-//            angle = -M_PI_2;
-//            break;
-//    }
-//    
-//    return angle;
+//	UICollectionViewCell<AGPhotoBrowserCellProtocol> *cell = [self.dataSource cellForBrowser:self withReuseIdentifier:reuseIdentifier];
+//	
+//	return cell;
 //}
+//
+//- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser URLStringForImageAtIndex:(NSInteger)index
+//{
+//	NSString *URLString = nil;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:URLStringForImageAtIndex:)]) {
+//		URLString = [self.dataSource photoBrowser:self URLStringForImageAtIndex:index];
+//	}
+//	
+//	return URLString;
+//}
+//
+//- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser titleForImageAtIndex:(NSInteger)index
+//{
+//	NSString *titleString = nil;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:titleForImageAtIndex:)]) {
+//		titleString = [self.dataSource photoBrowser:self titleForImageAtIndex:index];
+//	}
+//	
+//	return titleString;
+//}
+//
+//- (NSString *)photoBrowser:(AGPhotoBrowser *)photoBrowser descriptionForImageAtIndex:(NSInteger)index
+//{
+//	NSString *descriptionString = nil;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:descriptionForImageAtIndex:)]) {
+//		descriptionString = [self.dataSource photoBrowser:self descriptionForImageAtIndex:index];
+//	}
+//	
+//	return descriptionString;
+//}
+//
+//- (BOOL)photoBrowser:(AGPhotoBrowser *)photoBrowser willDisplayActionButtonAtIndex:(NSInteger)index
+//{
+//	BOOL willDisplayActionButton = NO;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:willDisplayActionButtonAtIndex:)]) {
+//		willDisplayActionButton = [self.dataSource photoBrowser:self willDisplayActionButtonAtIndex:index];
+//	}
+//	
+//	return willDisplayActionButton;
+//}
+//
+//- (BOOL)photoBrowser:(AGPhotoBrowser *)photoBrowser shouldDisplayOverlayViewAtIndex:(NSInteger)index
+//{
+//	BOOL shouldDisplayOverlayView = NO;
+//	if ([self.dataSource respondsToSelector:@selector(photoBrowser:shouldDisplayOverlayViewAtIndex:)]) {
+//		shouldDisplayOverlayView = [self.dataSource photoBrowser:self shouldDisplayOverlayViewAtIndex:index];
+//	}
+//	
+//	return shouldDisplayOverlayView;
+//}
+
 
 @end

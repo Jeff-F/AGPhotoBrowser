@@ -8,7 +8,6 @@
 
 #import "AGPhotoBrowserCell.h"
 #import "AGPhotoBrowserZoomableView.h"
-#import "UIView+Rotate.h"
 
 @interface AGPhotoBrowserCell () <AGPhotoBrowserZoomableViewDelegate>
 
@@ -76,7 +75,7 @@
         _zoomableView.zoomableDelegate = self;
 		
 		[_zoomableView addGestureRecognizer:self.panGesture];
-		[_zoomableView AG_rotateRadians:M_PI_2];
+//		[_zoomableView AG_rotateRadians:M_PI_2];
 	}
 	
 	return _zoomableView;

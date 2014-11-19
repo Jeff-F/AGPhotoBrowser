@@ -123,10 +123,10 @@ const NSInteger AGInitialDescriptionHeight = 32;
     
     CGSize descriptionSize;
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-        descriptionSize = [self.description sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(newDescriptionWidth, MAXFLOAT)];
+        descriptionSize = [self.photoDescription sizeWithFont:self.descriptionLabel.font constrainedToSize:CGSizeMake(newDescriptionWidth, MAXFLOAT)];
     } else {
         NSDictionary *textAttributes = @{NSFontAttributeName : self.descriptionLabel.font};
-        CGRect descriptionBoundingRect = [self.description boundingRectWithSize:CGSizeMake(newDescriptionWidth, MAXFLOAT)
+        CGRect descriptionBoundingRect = [self.photoDescription boundingRectWithSize:CGSizeMake(newDescriptionWidth, MAXFLOAT)
                                                                         options:NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading attributes:textAttributes
                                                                         context:nil];
         descriptionSize = CGSizeMake(ceil(CGRectGetWidth(descriptionBoundingRect)), ceil(CGRectGetHeight(descriptionBoundingRect)));
@@ -213,18 +213,18 @@ const NSInteger AGInitialDescriptionHeight = 32;
 					 }];
 }
 
-- (void)setTitle:(NSString *)title
+- (void)setPhotoTitle:(NSString *)title
 {
-	_title = title;
+	_photoTitle = title;
 	
-	self.titleLabel.text = _title.length ? _title : @"";
+	self.titleLabel.text = _photoTitle.length ? _photoTitle : @"";
 }
 
-- (void)setDescription:(NSString *)description
+- (void)setPhotoDescription:(NSString *)photoDescription
 {
-	_description = description;
+	_photoDescription = photoDescription;
 	
-	self.descriptionLabel.text = _description.length ? _description : @"";
+	self.descriptionLabel.text = _photoDescription.length ? _photoDescription : @"";
 }
 
 

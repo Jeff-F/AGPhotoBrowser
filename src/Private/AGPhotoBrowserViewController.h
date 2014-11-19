@@ -15,4 +15,6 @@
 @property (nonatomic, weak) id<AGPhotoBrowserDelegate> delegate;
 @property (nonatomic, weak) id<AGPhotoBrowserDataSource> dataSource;
 
+- (instancetype)initWithPhotoBrowser:(AGPhotoBrowser *)photoBrowser;
+
 @end

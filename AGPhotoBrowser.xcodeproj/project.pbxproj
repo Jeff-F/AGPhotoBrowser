@@ -27,13 +27,12 @@
 		DE2E1B2517C923BF0027C3C8 /* sample2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE2E1B2217C923BF0027C3C8 /* sample2.jpg */; };
 		DE2E1B2617C923BF0027C3C8 /* sample3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = DE2E1B2317C923BF0027C3C8 /* sample3.jpg */; };
 		DE9D38E417A5ABA10058BC67 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE9D38E317A5ABA10058BC67 /* QuartzCore.framework */; };
-		DEC2355C19A89ABC004BCF82 /* AGPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2354B19A89ABC004BCF82 /* AGPhotoBrowserCell.m */; };
 		DEC2355D19A89ABC004BCF82 /* AGPhotoBrowserGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2354D19A89ABC004BCF82 /* AGPhotoBrowserGradientView.m */; };
 		DEC2355E19A89ABC004BCF82 /* AGPhotoBrowserOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2354F19A89ABC004BCF82 /* AGPhotoBrowserOverlayView.m */; };
 		DEC2355F19A89ABC004BCF82 /* AGPhotoBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2355119A89ABC004BCF82 /* AGPhotoBrowserViewController.m */; };
 		DEC2356019A89ABC004BCF82 /* AGPhotoBrowserZoomableView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2355319A89ABC004BCF82 /* AGPhotoBrowserZoomableView.m */; };
-		DEC2356119A89ABC004BCF82 /* UIView+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2355519A89ABC004BCF82 /* UIView+Rotate.m */; };
 		DEC2356219A89ABC004BCF82 /* AGPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = DEC2355B19A89ABC004BCF82 /* AGPhotoBrowser.m */; };
+		DEE715181A1D53BC006AB37F /* AGPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DEE715171A1D53BC006AB37F /* AGPhotoBrowserCell.m */; };
 		KIYDQKWBMRKIEYEVRWSLKUDQ /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = HYXIFWTDXJPPRRMDCEPMDTJH /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -74,8 +73,6 @@
 		DE2E1B2217C923BF0027C3C8 /* sample2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample2.jpg; sourceTree = "<group>"; };
 		DE2E1B2317C923BF0027C3C8 /* sample3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample3.jpg; sourceTree = "<group>"; };
 		DE9D38E317A5ABA10058BC67 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		DEC2354A19A89ABC004BCF82 /* AGPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserCell.h; sourceTree = "<group>"; };
-		DEC2354B19A89ABC004BCF82 /* AGPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowserCell.m; sourceTree = "<group>"; };
 		DEC2354C19A89ABC004BCF82 /* AGPhotoBrowserGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserGradientView.h; sourceTree = "<group>"; };
 		DEC2354D19A89ABC004BCF82 /* AGPhotoBrowserGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowserGradientView.m; sourceTree = "<group>"; };
 		DEC2354E19A89ABC004BCF82 /* AGPhotoBrowserOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserOverlayView.h; sourceTree = "<group>"; };
@@ -84,13 +81,13 @@
 		DEC2355119A89ABC004BCF82 /* AGPhotoBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowserViewController.m; sourceTree = "<group>"; };
 		DEC2355219A89ABC004BCF82 /* AGPhotoBrowserZoomableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserZoomableView.h; sourceTree = "<group>"; };
 		DEC2355319A89ABC004BCF82 /* AGPhotoBrowserZoomableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowserZoomableView.m; sourceTree = "<group>"; };
-		DEC2355419A89ABC004BCF82 /* UIView+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Rotate.h"; sourceTree = "<group>"; };
-		DEC2355519A89ABC004BCF82 /* UIView+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Rotate.m"; sourceTree = "<group>"; };
 		DEC2355719A89ABC004BCF82 /* AGPhotoBrowserCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserCellProtocol.h; sourceTree = "<group>"; };
 		DEC2355819A89ABC004BCF82 /* AGPhotoBrowserDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserDataSource.h; sourceTree = "<group>"; };
 		DEC2355919A89ABC004BCF82 /* AGPhotoBrowserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserDelegate.h; sourceTree = "<group>"; };
 		DEC2355A19A89ABC004BCF82 /* AGPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowser.h; sourceTree = "<group>"; };
 		DEC2355B19A89ABC004BCF82 /* AGPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowser.m; sourceTree = "<group>"; };
+		DEE715161A1D53BC006AB37F /* AGPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGPhotoBrowserCell.h; sourceTree = "<group>"; };
+		DEE715171A1D53BC006AB37F /* AGPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGPhotoBrowserCell.m; sourceTree = "<group>"; };
 		HYXIFWTDXJPPRRMDCEPMDTJH /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -229,8 +226,8 @@
 		DEC2354919A89ABC004BCF82 /* Private */ = {
 			isa = PBXGroup;
 			children = (
-				DEC2354A19A89ABC004BCF82 /* AGPhotoBrowserCell.h */,
-				DEC2354B19A89ABC004BCF82 /* AGPhotoBrowserCell.m */,
+				DEE715161A1D53BC006AB37F /* AGPhotoBrowserCell.h */,
+				DEE715171A1D53BC006AB37F /* AGPhotoBrowserCell.m */,
 				DEC2354C19A89ABC004BCF82 /* AGPhotoBrowserGradientView.h */,
 				DEC2354D19A89ABC004BCF82 /* AGPhotoBrowserGradientView.m */,
 				DEC2354E19A89ABC004BCF82 /* AGPhotoBrowserOverlayView.h */,
@@ -239,8 +236,6 @@
 				DEC2355119A89ABC004BCF82 /* AGPhotoBrowserViewController.m */,
 				DEC2355219A89ABC004BCF82 /* AGPhotoBrowserZoomableView.h */,
 				DEC2355319A89ABC004BCF82 /* AGPhotoBrowserZoomableView.m */,
-				DEC2355419A89ABC004BCF82 /* UIView+Rotate.h */,
-				DEC2355519A89ABC004BCF82 /* UIView+Rotate.m */,
 			);
 			path = Private;
 			sourceTree = "<group>";
@@ -248,11 +243,11 @@
 		DEC2355619A89ABC004BCF82 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				DEC2355A19A89ABC004BCF82 /* AGPhotoBrowser.h */,
+				DEC2355B19A89ABC004BCF82 /* AGPhotoBrowser.m */,
 				DEC2355719A89ABC004BCF82 /* AGPhotoBrowserCellProtocol.h */,
 				DEC2355819A89ABC004BCF82 /* AGPhotoBrowserDataSource.h */,
 				DEC2355919A89ABC004BCF82 /* AGPhotoBrowserDelegate.h */,
-				DEC2355A19A89ABC004BCF82 /* AGPhotoBrowser.h */,
-				DEC2355B19A89ABC004BCF82 /* AGPhotoBrowser.m */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -374,12 +369,11 @@
 			files = (
 				DE2A3D8617A575C700CE0CA5 /* main.m in Sources */,
 				DEC2356019A89ABC004BCF82 /* AGPhotoBrowserZoomableView.m in Sources */,
-				DEC2355C19A89ABC004BCF82 /* AGPhotoBrowserCell.m in Sources */,
 				DEC2355F19A89ABC004BCF82 /* AGPhotoBrowserViewController.m in Sources */,
 				DE2A3D8A17A575C700CE0CA5 /* AppDelegate.m in Sources */,
 				DEC2355E19A89ABC004BCF82 /* AGPhotoBrowserOverlayView.m in Sources */,
 				DEC2355D19A89ABC004BCF82 /* AGPhotoBrowserGradientView.m in Sources */,
-				DEC2356119A89ABC004BCF82 /* UIView+Rotate.m in Sources */,
+				DEE715181A1D53BC006AB37F /* AGPhotoBrowserCell.m in Sources */,
 				DEC2356219A89ABC004BCF82 /* AGPhotoBrowser.m in Sources */,
 				DE2A3D9317A575C700CE0CA5 /* ViewController.m in Sources */,
 			);

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AGPhotoBrowserCell.h"
 #import "AGPhotoBrowserDelegate.h"
 #import "AGPhotoBrowserDataSource.h"
 
-#define AGPhotoBrowserVersion @"1.5.0"
+#define AGPhotoBrowserVersion @"2.0"
 
 @interface AGPhotoBrowser : NSObject
 
